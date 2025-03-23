@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <title>quiz</title>
+        <style>
+            body
+            {
+                background-color: violet;
+                font-family: Arial, sans-serif;
+                align-items: center ;
+                text-align: center;
+                justify-content: center;
+                display: flex;
+
+            }
+
+            #maincontainer
+            {
+                background-color: white;
+                border-radius: 10px;
+                overflow: 
+                hidden;
+                min-width: 300px;
+            }
+
+            h3{
+                text-align: center;
+
+            }
+
+            #next{
+                margin-top: 20px;
+            }
+
+            button{
+                border: none;
+                background-color: blueviolet;
+                color: aliceblue;
+                display: block;
+                width: 100%;
+                padding: 5px;
+            }
+
+            button:hover{
+                background-color: darkblue;
+            }
+
+            </style>
+    </head>
+    <body>
+        <div id="maincontainer">
+            <div>
+            <h3 id="question"> Question </h3> 
+            </div>
+            <input 
+            type="radio" id="a" name="ans">
+            <label for="a" id="Aans"> Option 1</label> 
+            <br>
+            <input type="radio" id="b" name="ans">
+            <label for="b" id="Bans"> Option 2</label>
+            <br>    
+            <input type="radio" id="c" name="ans">
+            <label for="c" id="Cans"> Option 3</label>
+            <br>
+            <input type="radio" id="d" name="ans">
+            <label for="d" id="Dans"> Option 4</label>
+            <br>
+
+            <button id="next" onclick="submit()">Next</button> <br>
+            <button id="showScore" onclick="showScore()">Score</button>
+        </div>  
+
+
+        <script>
+
+            const arr=[
+                {
+                    q:"what is the capital of india?",
+                    a:"delhi", 
+                    b:"mumbai",
+                    c:"kolkata",
+                    d:"chennai",
+                    ans:"a"
+                },
+                {
+                    q:"what is the capital of usa?",
+                    a:"new york", 
+                    b:"washington",
+                    c:"california",
+                    d:"florida",
+                    ans:"b"
+                },
+                {
+                    q:"what is the capital of uk?",
+                    a:"london", 
+                    b:"manchester",
+                    c:"liverpool",
+                    d:"birmingham",
+                    ans:"a"
+                },
+                {
+                    q:"what is the capital of australia?",
+                    a:"sydney", 
+                    b:"melbourne",
+                    c:"brisbane",
+                    d:"perth",
+                    ans:"a"
+                },
+                {
+                    q:"what is the capital of japan?",
+                    a:"tokyo", 
+                    b:"osaka",
+                    c:"kyoto",
+                    d:"nagoya",
+                    ans:"a"
+                }
+            ];
+
+            var i=0;
+            var score=0;
+            function loadquestion()
+            {
+                document.getElementById("question").innerHTML=arr[i].q;
+                document.getElementById("Aans").innerHTML=arr[i].a;
+                document.getElementById("Bans").innerHTML=arr[i].b;
+                document.getElementById("Cans").innerHTML=arr[i].c;
+                document.getElementById("Dans").innerHTML=arr[i].d;
+                document.getElementById("a").checked=false;
+                document.getElementById("b").checked=false;
+                document.getElementById("c").checked=false;
+                document.getElementById("d").checked=false;
+            }
+
+            function submit()
+            {
+                const optionChecked=document.querySelector('input[name="ans"]:checked');
+                if(!optionChecked)
+                {
+                    alert("Please select an option");
+                    return;
+                }
+                if(optionChecked.id==arr[i].ans)
+                {
+                    score+=10;
+                }
+                i++;
+                if(i==arr.length)
+                {
+                    alert("Quiz completed");
+                    return;
+                }
+
+                loadquestion();
+
+            }
+
+            function showScore()
+            {
+                alert("Your score is "+score);
+            }
+
+            loadquestion();
+
+        </script>
+
+
+    
+    </head>
+</html>
