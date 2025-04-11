@@ -1,0 +1,73 @@
+<html>
+    <head> <title>Smiley</title>
+        <style>
+            canvas{
+                background: blue;
+                border-radius: 10px;
+
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+            <script>
+                    var canvas = document.getElementById('canvas');
+                    var ctx = canvas.getContext('2d');
+                    var issmiling=true;
+
+                    function drawface(){
+                        ctx.beginPath();
+                        ctx.arc(200, 200, 170, 0, Math.PI * 2); //false krke dekho
+                        ctx.fillStyle = "yellow";
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.lineWidth = 5;
+                        ctx.arc(150, 150, 25, 0, Math.PI * 2, true);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        
+                        ctx.arc(250, 150, 25, 0, Math.PI * 2); //false krke dekh
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(200,200);
+                        ctx.quadraticCurveTo(150, 300, 200, 250);
+                        ctx.lineWidth = 5;
+                        ctx.stroke();
+                    }
+                    function smile(){
+                        ctx.beginPath();
+                        ctx.arc(200, 250, 50, 0, Math.PI); // *2 dekho
+                        ctx.stroke();
+
+                    }
+
+                    function sad(){
+                        ctx.beginPath();
+                        ctx.arc(200, 350, 50, Math.PI,0); // *2 dekho
+                        ctx.stroke();
+                    }
+                    function toggleface(){
+                        if(issmiling){
+                            drawface();
+                            smile();
+                            issmiling=false;
+                        }
+                        else{
+                            drawface();
+                            sad();
+                            issmiling=true;
+                        }
+                        toggleface();
+                    }
+
+            </script>
+
+            <br>
+            <button onclick="toggleface()">Toggle Face</button>
+
+
+
+    </body>
+</html>
