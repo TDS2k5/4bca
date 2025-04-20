@@ -1,0 +1,65 @@
+import mysql.connector
+# Step 1: Connect to MySQL Server
+con = mysql.connector.connect(
+host="localhost",
+user="root",
+password=""
+)
+cursor = con.cursor()
+# Step 2: Create and Use Database
+cursor.execute("CREATE DATABASE IF NOT EXISTS studentdb")
+con.database = "studentdb"
+# Step 3: Create Table if not exists
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS student (
+regno INT PRIMARY KEY,
+name VARCHAR(100),
+mark1 INT,
+mark2 INT,
+mark3 INT
+)
+""")
+# Menu-driven loop
+while True:
+print("\n====== Student Database Menu ======")
+print("1. Add New Student")
+print("2. View All Students")
+print("3. Delete Student by Reg No")
+print("4. Exit")
+choice = input("Enter your choice (1-4): ")
+if choice == '1':
+try:
+regno = int(input("Enter Register Number: "))
+name = input("Enter Name: ")
+mark1 = int(input("Enter Mark 1: "))
+mark2 = int(input("Enter Mark 2: "))
+mark3 = int(input("Enter Mark 3: "))
+sql = "INSERT INTO student (regno, name, mark1, mark2, mark3) VALUES (%s, %s, %s, %s, %s)"
+values = (regno, name, mark1, mark2, mark3)
+cursor.execute(sql, values)
+con.commit()
+print("Student added successfully!")
+except mysql.connector.IntegrityError:
+print("Reg No already exists. Please use a unique number.")
+elif choice == '2':
+cursor.execute("SELECT * FROM student")
+records = cursor.fetchall()
+print("\nAll Student Records:")
+for row in records:
+print(f"Reg No: {row[0]}, Name: {row[1]}, Marks: {row[2]}, {row[3]}, {row[4]}")
+elif choice == '3':
+regno = int(input("Enter Register Number to Delete: "))
+cursor.execute("DELETE FROM student WHERE regno = %s", (regno,))
+con.commit()
+if cursor.rowcount > 0:
+print(" Record deleted successfully.")
+else:
+print("No record found with that Reg No.")
+elif choice == '4':
+print("Exiting program...")
+break
+else:
+print("Invalid choice. Please select between 1 and 4.")
+# Step 4: Close Connection
+cursor.close()
+con.close()
